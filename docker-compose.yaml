@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  bot:
+    build:
+      context: ./bot
+    container_name: college-bot-client
+    tty: true
+    stdin_open: true
+    depends_on:
+      - api
+    env_file:
+      - ./bot/.env
+    ports:
+      - 5000:5000
+    volumes:
+      - ./bot:/app
+
+  api:
+    build:
+      context: ./api
+    container_name: college-bot-api
+    tty: true
+    stdin_open: true
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api:/app
